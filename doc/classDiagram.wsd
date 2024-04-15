@@ -1,0 +1,66 @@
+@startuml "Class Diagram"
+
+class User {
+    int id
+    String firstName
+    String lastName
+    String email
+    String phoneNumber
+}
+
+class Contractor {
+    int id
+    User user
+    Image profilePicture
+}
+
+class Customer {
+    int id
+    User user
+}
+
+class Category {
+    int id
+    String name
+    Image image
+    SubCategory[] subCategories
+}
+
+class SubCategory {
+    int id
+    String name
+    Image image
+    Category parentCategory
+}
+
+class Task {
+    LocalDateTime created
+    String description
+    Image[] images
+    Customer customer
+    Contractor contractor
+}
+
+class Image {
+    int id
+    LocalDateTime created
+    String path
+    String name
+    String extension
+    BigInteger size
+}
+
+User "1" *--> "1" Customer
+User "1" *--> "1" Contractor
+
+SubCategory "1..*"--"1" Category
+Image "1"<--"1" Contractor
+
+Image "1"<--"1" Category
+Image "1"<--"1" SubCategory
+
+Image "1..*"<--"1" Task
+Customer "1"--"1..*" Task
+Contractor "1"--"1..*" Task
+
+@enduml

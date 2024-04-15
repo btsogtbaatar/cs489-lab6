@@ -1,0 +1,70 @@
+@startuml "ERD"
+entity user {
+    id: int<<PK, AI>>
+    firstName: varchar(100)
+    lastName: varchar(100)
+    email: varchar(100)
+    phoneNumber: varchar(100)
+}
+
+entity contractor {
+    id: int<<PK, AI>>
+    ---
+    user_id: int<<FK>>
+    profile_picture_id: int<<FK>> 
+}
+
+entity customer {
+    id: int<<PK, AI>>
+    ---
+    user_id: int<<FK>>
+}
+
+entity category {
+    id: int<<PK, AI>>
+    name: varchar(100)
+    ---
+    image_id: int<<FK>>
+}
+
+entity sub_category {
+    id: int<<PK, AI>>
+    name: varchar(100)
+    ---
+    image_id: int<<FK>>
+    parent_category_id: int<<FK>>
+}
+
+entity task {
+    created: DateTime
+    description: Text
+    ---
+    customer_id: int<<FK>>
+    contractor_id: int<<FK>>
+}
+
+entity image {
+    id: int<<PK, AI>>
+    created: DateTime
+    path: varchar(255)
+    name: varchar(100)
+    extension: varchar(45)
+    size: BIGINT
+    --
+    task_id: int<<FK>>
+}
+
+user -- customer
+user -- contractor
+
+sub_category }|-- category
+image -- contractor
+
+image -- category
+image -- sub_category
+
+image }|-- task
+customer --|{ task
+contractor --|{ task
+
+@enduml
