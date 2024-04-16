@@ -53,14 +53,15 @@ class Image {
 User "1" *--> "1" Customer
 User "1" *--> "1" Contractor
 
-SubCategory "1..*"--"1" Category
-Image "1"<--"1" Contractor
+SubCategory "1..*" -- "1" Category
+Image "1" <-- "1" Contractor
 
-Image "1"<--"1" Category
-Image "1"<--"1" SubCategory
+Image "1" <-- "1" Category
+Image "1" <-- "1" SubCategory
 
-Image "1..*"<--"1" Task
-Customer "1"--"1..*" Task
-Contractor "1"--"1..*" Task
+Image "1..*" <-- "1" Task
+Customer "1" *--> "1..*" Task
+Contractor "1" *--> "1..*" Task
+SubCategory "1" *--> "1..*" Task
 
 @enduml
